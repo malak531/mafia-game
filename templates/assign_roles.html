@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='roles_styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Assign Roles</h1>
+    <div id="player-container" class="player-container">
+        <a class="start-btn" onclick="showNextRole()">Start Assigning</a>
+    </div>
+    <div id="player-name"></div>
+    <div id="role" class="role"></div>
+    <button id="reveal-button" style="display:none;" onclick="revealRole()">Reveal Role</button>
+    <button id="next-button" style="display:none;" onclick="nextPlayer()">Next Player</button>
+
+    <script>
+        const playersJSON = JSON.parse(`{{ players | tojson | safe }}`);
+
+        let currentIndex = 0;
+
+
+        function showNextRole() {
+            document.body.classList.add('plain-bg');
+            if (currentIndex < playersJSON.length) {
+                document.getElementById('player-name').textContent = playersJSON[currentIndex].name + ", please take the device!";
+                document.getElementById('player-name').style.display = 'block';
+
+                document.getElementById('role').style.display = 'none';
+                document.getElementById('start-btn').style.display = 'none';
+                document.getElementById('reveal-button').style.display = 'block';
+                document.getElementById('next-button').style.display = 'none';
+            } else {
+                document.getElementById('player-name').textContent = "All roles have been revealed!";
+                document.getElementById('player-name').style.display = 'block';
+                document.getElementById('role').style.display = 'none';
+                document.getElementById('reveal-button').style.display = 'none';
+                document.getElementById('next-button').style.display = 'none';
+            }
+        }
+
+        function revealRole() {
+            const roleElement = document.getElementById('role');
+            const playerName = playersJSON[currentIndex].name;
+            const playerRole = playersJSON[currentIndex].role;
+            document.getElementById('player-name').style.display = 'none';
+            roleElement.textContent = `${playerName}, your role is: ${playerRole}`;
+            roleElement.style.display = 'block';
+
+            document.body.className = ''; // Reset class
+
+            // Apply different styles based on the player's role
+            if (playerRole === 'Mafia') {
+                document.body.classList.add('mafia-bg');
+            } else if (playerRole === 'Detective') {
+                document.body.classList.add('detective-bg');
+            } else if (playerRole === 'Citizen') {
+                document.body.classList.add('citizen-bg');
+            } else if (playerRole === 'Healer') {
+                document.body.classList.add('hear-bg');
+            }
+
+            document.getElementById('reveal-button').style.display = 'none';
+            document.getElementById('next-button').style.display = 'block';
+        }
+
+        function nextPlayer() {
+            currentIndex++;
+            showNextRole();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('start-btn').addEventListener("click", showNextRole);
+        });
+    </script>
+
+</body>
+
+</html>

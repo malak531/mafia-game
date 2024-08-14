@@ -1,0 +1,74 @@
+.new-amsterdam-regular {
+    font-family: "New Amsterdam", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "New Amsterdam", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    transition: background-color 0.5s ease-in-out;
+    background-image: url(images/background.jpg);
+    margin-top: -100px;
+}
+
+.role {
+    padding: 40px 40px 40px 40px;
+}
+
+.player-name {
+    padding: 40px 40px 40px 40px;
+}
+
+h1 {
+    font-size: 150px;
+}
+
+body.mafia-bg {
+    background-color: rgb(236, 113, 113);
+}
+
+body.plain-bg {
+    background-color: rgb(255, 255, 255);
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.role {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.player-container {
+    margin-top: 60px;
+}
+
+.player-container .start-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f82e2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.player-container .start-btn:hover {
+    background-color: #9c1515;
+}

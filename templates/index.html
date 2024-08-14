@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mafia Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1>Mafia Game</h1>
+
+    <form action="{{ url_for('add_player') }}" method="POST">
+        <input type="text" name="player_name" placeholder="Enter player name">
+        <button type="submit">Add Player</button>
+    </form>
+
+    <h2>Players:</h2>
+    <ul>
+        {% for player in players %}
+        <li>
+            {{ player.name }} - {{ player.role if player.role else "No role assigned" }} {% if player.alive %}
+            <a href="{{ url_for('kill', player_name=player.name) }}">Kill</a> {% else %} (Dead) {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('assign_roles') }}">Assign Roles</a>
+</body>
+
+</html>
