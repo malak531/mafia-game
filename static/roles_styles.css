@@ -14,7 +14,6 @@ body {
     margin: 0;
     background-color: #f4f4f4;
     transition: background-color 0.5s ease-in-out;
-    background-image: url(images/background.jpg);
     margin-top: -100px;
 }
 
@@ -24,6 +23,7 @@ body {
 
 .player-name {
     padding: 40px 40px 40px 40px;
+    font-size: 50px;
 }
 
 h1 {
@@ -71,4 +71,8 @@ h1 {
 
 .player-container .start-btn:hover {
     background-color: #9c1515;
+}
+
+.role-image {
+    transition: ;
 }

@@ -13,14 +13,16 @@
 </head>
 
 <body>
-    <h1>Assign Roles</h1>
+    <h1 id="assignTitle">Assign Roles</h1>
     <div id="player-container" class="player-container">
-        <a class="start-btn" onclick="showNextRole()">Start Assigning</a>
+        <a class="start-btn" id="start-btn" onclick="showNextRole()">Start Assigning</a>
     </div>
-    <div id="player-name"></div>
+    <div class="player-name" id="player-name"></div>
     <div id="role" class="role"></div>
-    <button id="reveal-button" style="display:none;" onclick="revealRole()">Reveal Role</button>
-    <button id="next-button" style="display:none;" onclick="nextPlayer()">Next Player</button>
+    <img class="role-image" id="role-image" src="#" alt="Role Image" style="display:none; width: 300px; height: auto;">
+
+    <button class="reveal-button" id="reveal-button" style="display:none;" onclick="revealRole()">Reveal Role</button>
+    <button class="next-button" id="next-button" style="display:none;" onclick="nextPlayer()">Next Player</button>
 
     <script>
         const playersJSON = JSON.parse(`{{ players | tojson | safe }}`);
@@ -30,6 +32,7 @@
 
         function showNextRole() {
             document.body.classList.add('plain-bg');
+            document.getElementById('assignTitle').style.display = 'none';
             if (currentIndex < playersJSON.length) {
                 document.getElementById('player-name').textContent = playersJSON[currentIndex].name + ", please take the device!";
                 document.getElementById('player-name').style.display = 'block';
@@ -56,24 +59,31 @@
             roleElement.style.display = 'block';
 
             document.body.className = ''; // Reset class
-
+            const roleImage = document.getElementById('role-image');
             // Apply different styles based on the player's role
             if (playerRole === 'Mafia') {
                 document.body.classList.add('mafia-bg');
+                roleImage.src = "{{ url_for('static', filename='images/mafia.png') }}";
             } else if (playerRole === 'Detective') {
                 document.body.classList.add('detective-bg');
+                roleImage.src = "{{ url_for('static', filename='images/mafia.png') }}";
             } else if (playerRole === 'Citizen') {
                 document.body.classList.add('citizen-bg');
+                roleImage.src = "{{ url_for('static', filename='images/citizen.png') }}";
             } else if (playerRole === 'Healer') {
                 document.body.classList.add('hear-bg');
+                roleImage.src = "{{ url_for('static', filename='images/mafia.png') }}";
             }
-
+            roleImage.style.display = 'block';
             document.getElementById('reveal-button').style.display = 'none';
             document.getElementById('next-button').style.display = 'block';
         }
 
         function nextPlayer() {
             currentIndex++;
+            document.body.classList.add('plain-bg');
+            document.getElementById('role-image').style.display = 'none';
+
             showNextRole();
         }
 
